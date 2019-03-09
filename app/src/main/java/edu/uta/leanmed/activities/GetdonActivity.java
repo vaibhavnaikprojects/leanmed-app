@@ -9,22 +9,31 @@ import android.widget.TextView;
 
 public class GetdonActivity extends AppCompatActivity {
 
-    private TextView mTextMessage;
-
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
-                case R.id.navigation_home:
-                    mTextMessage.setText(R.string.title_home);
+                case R.id.navigation_search:
+                    //fragmentTransaction.replace(R.id.content,new SearchFragment()).commit();
+                    setTitle("Search");
                     return true;
-                case R.id.navigation_dashboard:
-                    mTextMessage.setText(R.string.title_dashboard);
+                case R.id.navigation_cart:
+                    setTitle(R.string.title_cart);
+                    //fragmentTransaction.replace(R.id.content,new CartFragment()).commit();
                     return true;
-                case R.id.navigation_notifications:
-                    mTextMessage.setText(R.string.title_notifications);
+                case R.id.navigation_request:
+                    setTitle(R.string.title_requests);
+                    //fragmentTransaction.replace(R.id.content,new RequestFragment()).commit();
+                    return true;
+                case R.id.navigation_history:
+                    setTitle(R.string.title_history);
+                    //fragmentTransaction.replace(R.id.content,new HistoryFragment()).commit();
+                    return true;
+                case R.id.navigation_info:
+                    setTitle(R.string.title_info);
+                    //fragmentTransaction.replace(R.id.content,new InfoFragment()).commit();
                     return true;
             }
             return false;
@@ -35,8 +44,6 @@ public class GetdonActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_getdon);
-
-        mTextMessage = (TextView) findViewById(R.id.message);
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
     }

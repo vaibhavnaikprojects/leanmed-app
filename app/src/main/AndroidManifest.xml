@@ -37,7 +37,8 @@
             android:label="@string/app_title" />
         <activity
             android:name=".AdminActivity"
-            android:label="@string/app_title"></activity>
+            android:label="@string/app_title" />
+        <activity android:name=".ForgotActivity"></activity>
     </application>
 
 </manifest>

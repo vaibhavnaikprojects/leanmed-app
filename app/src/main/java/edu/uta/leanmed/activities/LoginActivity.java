@@ -17,6 +17,7 @@ import android.view.View.OnClickListener;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import edu.uta.leanmed.pojo.UserPojo;
 import edu.uta.leanmed.services.RetrofitService;
@@ -30,6 +31,7 @@ public class LoginActivity extends AppCompatActivity{
     private EditText mEmailView,mPasswordView;
     private View mProgressView;
     private UserService service;
+    private TextView mForgot,mRegister;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,16 +42,39 @@ public class LoginActivity extends AppCompatActivity{
         if(SharedPreferenceService.getUserName().length() != 0){
             UserPojo userPojo= SharedPreferenceService.getSavedObjectFromPreference(LoginActivity.this, SharedPreferenceService.getUserName());
             nextActivity(userPojo);
+            finish();
         }
         else {
-            mEmailView = (EditText) findViewById(R.id.email);
-            mPasswordView = (EditText) findViewById(R.id.password);
+            mEmailView = findViewById(R.id.email);
+            mPasswordView = findViewById(R.id.password);
+            mForgot=findViewById(R.id.forgotPass);
+            mRegister=findViewById(R.id.register);
+            mRegister.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    /*Intent intent=new Intent(LoginActivity.this,RegisterActivity.class);
+                    startActivity(intent);
+                    finish();*/
+                }
+            });
+            mForgot.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent=new Intent(LoginActivity.this,ForgotActivity.class);
+                    startActivity(intent);
+                    finish();
+                }
+            });
             Button mEmailSignInButton = (Button) findViewById(R.id.email_sign_in_button);
             service = RetrofitService.newInstance().create(UserService.class);
             mEmailSignInButton.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    attemptLogin();
+                    UserPojo userPojo=new UserPojo();
+                    userPojo.setName("Vaibhav Naik");
+                    userPojo.setType(1);
+                    nextActivity(userPojo);
+                    //attemptLogin();
                 }
             });
             mProgressView = findViewById(R.id.login_progress);
@@ -89,6 +114,7 @@ public class LoginActivity extends AppCompatActivity{
                     if(userPojo!=null) {
                         SharedPreferenceService.saveObjectToSharedPreference(LoginActivity.this, userPojo.getEmailId(), userPojo);
                         nextActivity(userPojo);
+                        finish();
                     }
                     else{
                         showProgress(false);
