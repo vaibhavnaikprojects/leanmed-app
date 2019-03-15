@@ -37,4 +37,10 @@
     <string name="change_password">Cambia la contraseña</string>
     <string name="change_contact">Cambiar contacto</string>
     <string name="language_preference">Preferencia de idioma</string>
+    <string name="prompt_select_language">Seleccione el idioma</string>
+    <string name="english">English</string>
+    <string name="spanish">Español</string>
+    <string name="prompt_select_contact">Actualizar contacto</string>
+    <string name="update">Actualizar</string>
+    <string name="prompt_select_password">Actualiza contraseña</string>
 </resources>

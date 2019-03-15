@@ -3,29 +3,33 @@ package edu.uta.leanmed.activities;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.widget.TextView;
 
 public class AdminActivity extends AppCompatActivity {
-
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
-
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.navigation_search:
-                    //fragmentTransaction.replace(R.id.content,new SearchFragment()).commit();
+                    loadFragment(new SearchFragment());
+                    setTitle(R.string.title_search);
                     return true;
                 case R.id.navigation_request:
-                    //fragmentTransaction.replace(R.id.content,new UserFragment()).commit();
+                    setTitle(R.string.title_requests);
+                    //loadFragment(new RequestFragment());
                     return true;
                 case R.id.navigation_history:
-                    //fragmentTransaction.replace(R.id.content,new HistoryFragment()).commit();
+                    setTitle(R.string.title_history);
+                    //loadFragment(new HistoryFragment());
                     return true;
                 case R.id.navigation_info:
-                    //fragmentTransaction.replace(R.id.content,new InfoFragment()).commit();
+                    setTitle(R.string.title_info);
+                    loadFragment(new InfoFragment());
                     return true;
             }
             return false;
@@ -36,8 +40,17 @@ public class AdminActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin);
-        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
+        setTitle(R.string.title_search);
+        loadFragment(new SearchFragment());
+        BottomNavigationView navigation = findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+    }
+
+    private void loadFragment(Fragment fragment) {
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.content, fragment);
+        transaction.addToBackStack(null);
+        transaction.commit();
     }
 
 }
