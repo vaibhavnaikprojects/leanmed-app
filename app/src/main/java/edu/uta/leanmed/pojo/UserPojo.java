@@ -9,10 +9,22 @@ import java.io.Serializable;
 public class UserPojo implements Serializable{
     private int userId;
     private String name;
-    private int type;
     private String emailId;
     private String contact;
+    private String password;
+    private int type;
     private ZonePojo zone;
+    private int status;
+    private int languagePref;
+    public UserPojo(){}
+
+    public UserPojo(String name, String emailId, String contact, String password, int type) {
+        this.name = name;
+        this.emailId = emailId;
+        this.contact = contact;
+        this.password = password;
+        this.type = type;
+    }
 
     public int getUserId() {
         return userId;
@@ -62,6 +74,30 @@ public class UserPojo implements Serializable{
         this.zone = zone;
     }
 
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
+
+    public int getLanguagePref() {
+        return languagePref;
+    }
+
+    public void setLanguagePref(int languagePref) {
+        this.languagePref = languagePref;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
     @Override
     public String toString() {
         return "UserPojo{" +
@@ -70,7 +106,10 @@ public class UserPojo implements Serializable{
                 ", type=" + type +
                 ", emailId='" + emailId + '\'' +
                 ", contact='" + contact + '\'' +
+                ", password='" + password + '\'' +
                 ", zone=" + zone +
+                ", status=" + status +
+                ", languagePref=" + languagePref +
                 '}';
     }
 }

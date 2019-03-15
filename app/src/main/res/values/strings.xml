@@ -1,33 +1,41 @@
 <resources>
     <string name="app_name">LeanMed</string>
-
-    <string name="dummy_button">Dummy Button</string>
     <string name="app_title">LeanMed</string>
-    <!-- Strings related to login -->
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password</string>
+    <string name="prompt_confirm_password">Confirm Password</string>
     <string name="action_sign_in">Sign in</string>
     <string name="error_invalid_email">This email address is invalid</string>
     <string name="error_invalid_password">This password is too short</string>
+    <string name="error_invalid_contact">This contact is invalid</string>
     <string name="error_incorrect_password">This password is incorrect</string>
     <string name="error_field_required">This field is required</string>
-    <string name="permission_rationale">"Contacts permissions are needed for providing email
-        completions."
-    </string>
     <string name="title_search">Search</string>
     <string name="title_cart">Cart</string>
     <string name="title_requests">Pending Requests</string>
     <string name="title_history">History</string>
     <string name="title_info">Info</string>
-    <string name="title_activity_register">RegisterActivity</string>
+    <string name="title_activity_register">Register</string>
     <string name="action_settings">Settings</string>
-    <string name="section_format">Hello World from section: %1$d</string>
     <string name="forgot_pass">Forgot Password?</string>
     <string name="recover_pass">Recover Password</string>
     <string name="login_return">Return to Login</string>
     <string name="forgot_pass_message">Please check your mail</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="register_status">User has been registered, pending with admin</string>
+    <string name="register_failed_status">Registration failed</string>
+    <string name="inactive_user">User is inactive at the moment, Contact admin</string>
+    <string name="prompt_name">Name</string>
+    <string name="prompt_contact">Phone</string>
+    <string name="prompt_recDon">RecDon</string>
+    <string name="prompt_getDon">GetDon</string>
+    <string name="select_zone">Select Zone</string>
+    <string name="error_invalid_confirm_password">Passwords does not match</string>
+    <string name="prompt_select_zone">Select Zone</string>
+    <string name="cancel">Cancel</string>
+    <string name="select">Select</string>
+    <string name="logout">Logout</string>
+    <string name="change_password">Change Password</string>
+    <string name="change_contact">Change Contact</string>
+    <string name="language_preference">Language Preference</string>
 
 </resources>

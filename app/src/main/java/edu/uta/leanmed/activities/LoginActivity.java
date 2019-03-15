@@ -52,9 +52,9 @@ public class LoginActivity extends AppCompatActivity{
             mRegister.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    /*Intent intent=new Intent(LoginActivity.this,RegisterActivity.class);
+                    Intent intent=new Intent(LoginActivity.this,RegisterActivity.class);
                     startActivity(intent);
-                    finish();*/
+                    finish();
                 }
             });
             mForgot.setOnClickListener(new OnClickListener() {
@@ -72,7 +72,7 @@ public class LoginActivity extends AppCompatActivity{
                 public void onClick(View view) {
                     UserPojo userPojo=new UserPojo();
                     userPojo.setName("Vaibhav Naik");
-                    userPojo.setType(1);
+                    userPojo.setType(2);
                     nextActivity(userPojo);
                     //attemptLogin();
                 }
@@ -112,9 +112,16 @@ public class LoginActivity extends AppCompatActivity{
                     showProgress(false);
                     UserPojo userPojo=response.body();
                     if(userPojo!=null) {
-                        SharedPreferenceService.saveObjectToSharedPreference(LoginActivity.this, userPojo.getEmailId(), userPojo);
-                        nextActivity(userPojo);
-                        finish();
+                        if(userPojo.getStatus()==1) {
+                            SharedPreferenceService.saveObjectToSharedPreference(LoginActivity.this, userPojo.getEmailId(), userPojo);
+                            nextActivity(userPojo);
+                            finish();
+                        }
+                        else{
+                            showProgress(false);
+                            mPasswordView.setError(getString(R.string.inactive_user));
+                            mPasswordView.requestFocus();
+                        }
                     }
                     else{
                         showProgress(false);
@@ -159,9 +166,10 @@ public class LoginActivity extends AppCompatActivity{
 
     public void nextActivity(UserPojo userPojo){
         Intent intent=null;
-        if(userPojo.getType()==1)   intent=new Intent(LoginActivity.this,RecdonActivity.class);
-        else if(userPojo.getType()==2) intent=new Intent(LoginActivity.this,GetdonActivity.class);
+        if(userPojo.getType()==2)   intent=new Intent(LoginActivity.this,RecdonActivity.class);
+        else if(userPojo.getType()==1) intent=new Intent(LoginActivity.this,GetdonActivity.class);
         else intent=new Intent(LoginActivity.this,AdminActivity.class);
+        intent.putExtra("user",userPojo);
         startActivity(intent);
     }
 }

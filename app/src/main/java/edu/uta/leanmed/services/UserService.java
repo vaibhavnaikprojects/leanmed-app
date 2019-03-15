@@ -2,7 +2,9 @@ package edu.uta.leanmed.services;
 
 import edu.uta.leanmed.pojo.UserPojo;
 import retrofit2.Call;
+import retrofit2.http.Body;
 import retrofit2.http.GET;
+import retrofit2.http.POST;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 
@@ -16,4 +18,7 @@ public interface UserService {
 
     @GET("users/{user}/forgotpass")
     Call<Boolean> forgotPass(@Path("emailId") String email);
+
+    @POST("users")
+    Call<Boolean> addUser(@Body UserPojo email);
 }
