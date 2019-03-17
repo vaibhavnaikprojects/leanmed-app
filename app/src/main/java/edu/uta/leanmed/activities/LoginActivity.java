@@ -3,6 +3,7 @@ package edu.uta.leanmed.activities;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
+import android.app.ActivityOptions;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 
@@ -73,6 +74,9 @@ public class LoginActivity extends AppCompatActivity{
                     UserPojo userPojo=new UserPojo();
                     userPojo.setName("Vaibhav Naik");
                     userPojo.setType(2);
+                    userPojo.setLanguagePref(1);
+                    SharedPreferenceService.setLocale(getBaseContext(),userPojo.getLanguagePref()==1?"en":"es");
+                    SharedPreferenceService.loadLocale(getBaseContext());
                     nextActivity(userPojo);
                     //attemptLogin();
                 }
@@ -170,7 +174,8 @@ public class LoginActivity extends AppCompatActivity{
         else if(userPojo.getType()==1) intent=new Intent(LoginActivity.this,GetdonActivity.class);
         else intent=new Intent(LoginActivity.this,AdminActivity.class);
         intent.putExtra("user",userPojo);
-        startActivity(intent);
+        startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
     }
 }
 

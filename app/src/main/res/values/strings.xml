@@ -43,4 +43,6 @@
     <string name="prompt_select_contact">Update Contact</string>
     <string name="update">Update</string>
     <string name="prompt_select_password">Update Password</string>
+    <string name="prompt_admin">Admin</string>
+    <string name="app_version">Version: 0.1</string>
 </resources>
