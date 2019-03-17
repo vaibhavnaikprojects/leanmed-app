@@ -1,7 +1,6 @@
 package edu.uta.leanmed.activities;
 
 import android.content.Intent;
-import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
@@ -156,4 +155,5 @@ public class InfoFragment extends Fragment {
         });
         return view;
     }
+
 }

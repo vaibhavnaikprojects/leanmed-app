@@ -21,11 +21,11 @@ public class AdminActivity extends AppCompatActivity {
                     return true;
                 case R.id.navigation_request:
                     setTitle(R.string.title_requests);
-                    //loadFragment(new RequestFragment());
+                    loadFragment(new UserFragment());
                     return true;
                 case R.id.navigation_history:
                     setTitle(R.string.title_history);
-                    //loadFragment(new HistoryFragment());
+                    loadFragment(new HistoryFragment());
                     return true;
                 case R.id.navigation_info:
                     setTitle(R.string.title_info);

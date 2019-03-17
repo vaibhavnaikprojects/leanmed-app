@@ -45,4 +45,7 @@
     <string name="prompt_select_password">Update Password</string>
     <string name="prompt_admin">Admin</string>
     <string name="app_version">Version: 0.1</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

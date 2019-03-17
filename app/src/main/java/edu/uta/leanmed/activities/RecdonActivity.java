@@ -24,15 +24,15 @@ public class RecdonActivity extends AppCompatActivity {
                     return true;
                 case R.id.navigation_cart:
                     setTitle(R.string.title_cart);
-                    //loadFragment(new CartFragment());
+                    loadFragment(new CartFragment());
                     return true;
                 case R.id.navigation_request:
                     setTitle(R.string.title_requests);
-                    //loadFragment(new RequestFragment());
+                    loadFragment(new RequestFragment());
                     return true;
                 case R.id.navigation_history:
                     setTitle(R.string.title_history);
-                    //loadFragment(new HistoryFragment());
+                    loadFragment(new HistoryFragment());
                     return true;
                 case R.id.navigation_info:
                     setTitle(R.string.title_info);
@@ -47,7 +47,6 @@ public class RecdonActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recdon);
-        UserPojo userPojo=(UserPojo) getIntent().getSerializableExtra("user");
         setTitle(R.string.title_search);
         loadFragment(new SearchFragment());
         BottomNavigationView navigation = findViewById(R.id.navigation);
