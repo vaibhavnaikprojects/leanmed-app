@@ -8,7 +8,7 @@ import com.google.gson.Gson;
 
 import java.util.Locale;
 
-import edu.uta.leanmed.pojo.UserPojo;
+import edu.uta.leanmed.pojo.User;
 
 /**
  * Created by Vaibhav's Console on 3/8/2019.
@@ -16,7 +16,7 @@ import edu.uta.leanmed.pojo.UserPojo;
 
 public class SharedPreferenceService {
     private static String userName="";
-    public static void saveObjectToSharedPreference(Context context, String serializedObjectKey, UserPojo user) {
+    public static void saveObjectToSharedPreference(Context context, String serializedObjectKey, User user) {
         SharedPreferences.Editor sharedPreferencesEditor = context.getSharedPreferences("users", 0).edit();
         final Gson gson = new Gson();
         userName=serializedObjectKey;
@@ -44,11 +44,11 @@ public class SharedPreferenceService {
         updateLocale(context,lang);
     }
 
-    public static UserPojo getSavedObjectFromPreference(Context context, String preferenceKey) {
+    public static User getSavedObjectFromPreference(Context context, String preferenceKey) {
         SharedPreferences sharedPreferences = context.getSharedPreferences("users", 0);
         if (sharedPreferences.contains(preferenceKey)) {
             final Gson gson = new Gson();
-            return gson.fromJson(sharedPreferences.getString(preferenceKey, ""), UserPojo.class);
+            return gson.fromJson(sharedPreferences.getString(preferenceKey, ""), User.class);
         }
         return null;
     }

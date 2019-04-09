@@ -1,18 +1,18 @@
 <resources>
     <string name="app_name">LeanMed</string>
     <string name="app_title">LeanMed</string>
-    <string name="prompt_email">correo electrónico</string>
+    <string name="prompt_email">Correo electrónico</string>
     <string name="prompt_password">contraseña</string>
     <string name="prompt_confirm_password">Confirmar contraseña</string>
-    <string name="action_sign_in">iniciar sesión</string>
+    <string name="action_sign_in">Iniciar sesión</string>
     <string name="error_invalid_email">Esta dirección de correo electrónico no es válida</string>
     <string name="error_invalid_password">Esta contraseña es demasiado corta</string>
     <string name="error_invalid_contact">Este contacto no es válido</string>
     <string name="error_incorrect_password">Esta contraseña es incorrecta</string>
-    <string name="error_field_required">este campo es requerido</string>
+    <string name="error_field_required">Este campo es requerido</string>
     <string name="title_search">Buscar</string>
     <string name="title_cart">Carro</string>
-    <string name="title_requests">solicitudes pendientes</string>
+    <string name="title_requests">Solicitudes pendientes</string>
     <string name="title_history">Historia</string>
     <string name="title_info">Información</string>
     <string name="title_activity_register">Registro</string>
@@ -44,4 +44,6 @@
     <string name="update">Actualizar</string>
     <string name="prompt_select_password">Actualiza contraseña</string>
     <string name="prompt_admin">Administración</string>
+    <string name="title_filter">Filtrar</string>
+    <string name="new_user">Nuevo usuario? Registrar aquí</string>
 </resources>

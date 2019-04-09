@@ -9,7 +9,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
@@ -24,8 +23,8 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
-import edu.uta.leanmed.pojo.UserPojo;
-import edu.uta.leanmed.pojo.ZonePojo;
+import edu.uta.leanmed.pojo.User;
+import edu.uta.leanmed.pojo.Zone;
 import edu.uta.leanmed.services.RetrofitService;
 import edu.uta.leanmed.services.UserService;
 import retrofit2.Call;
@@ -182,15 +181,15 @@ public class RegisterActivity extends AppCompatActivity{
             focusView.requestFocus();
         } else {
             showProgress(true);
-            UserPojo userPojo=new UserPojo(name,email,contact,password,rType.getText().equals(getString(R.string.prompt_getDon))?1:2);
-            if(userPojo.getType()==2){
+            User user =new User(name,email,contact,password,rType.getText().equals(getString(R.string.prompt_getDon))?1:2);
+            if(user.getType()==2){
                 int c=mZone.getCheckedRadioButtonId();
                 RadioButton radioButton=mView.findViewById(c);
-                userPojo.setZone(new ZonePojo(radioButton.getText().toString()));
+                user.setZone(new Zone(radioButton.getText().toString()));
                 mBtnZone.setText("Zone: "+radioButton.getText().toString());
             }
-            userPojo.setStatus(2);
-            Call<Boolean> userCall = service.addUser(userPojo);
+            user.setStatus(2);
+            Call<Boolean> userCall = service.addUser(user);
             userCall.enqueue(new Callback<Boolean>(){
                 @Override
                 public void onResponse(Call<Boolean> call, Response<Boolean> response) {

@@ -14,9 +14,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
-import java.util.Locale;
-
-import edu.uta.leanmed.pojo.UserPojo;
+import edu.uta.leanmed.pojo.User;
 import edu.uta.leanmed.services.SharedPreferenceService;
 
 public class InfoFragment extends Fragment {
@@ -42,9 +40,9 @@ public class InfoFragment extends Fragment {
         mLogout=view.findViewById(R.id.logout);
         mName=view.findViewById(R.id.name);
         mType=view.findViewById(R.id.description);
-        final UserPojo userPojo=(UserPojo) getActivity().getIntent().getSerializableExtra("user");
-        mName.setText(userPojo.getName());
-        switch (userPojo.getType()){
+        final User user =(User) getActivity().getIntent().getSerializableExtra("user");
+        mName.setText(user.getName());
+        switch (user.getType()){
             case 1:
                 mType.setText(getString(R.string.prompt_getDon));
                 break;
@@ -60,7 +58,7 @@ public class InfoFragment extends Fragment {
         RadioButton engLangPref=mLanguageDailog.findViewById(R.id.langEng);
         RadioButton spanishLangPref=mLanguageDailog.findViewById(R.id.langSpanish);
         final RadioGroup langPrefGroup=mLanguageDailog.findViewById(R.id.select_lang_pref);
-        if(userPojo.getLanguagePref()==1)   engLangPref.setChecked(true);
+        if(user.getLanguagePref()==1)   engLangPref.setChecked(true);
         else    spanishLangPref.setChecked(true);
         ImageView cancelLangDailog=mLanguageDailog.findViewById(R.id.dailog_close);
         mLangPrefBuilder.setView(mLanguageDailog);
@@ -77,10 +75,10 @@ public class InfoFragment extends Fragment {
             public void onClick(View view) {
                 RadioButton selectedButton=mLanguageDailog.findViewById(langPrefGroup.getCheckedRadioButtonId());
                 if(selectedButton.getText().toString().equalsIgnoreCase(getString(R.string.english)))
-                    userPojo.setLanguagePref(1);
-                else userPojo.setLanguagePref(2);
-                SharedPreferenceService.setLocale(getActivity().getBaseContext(),userPojo.getLanguagePref()==1?"en":"es");
-                SharedPreferenceService.saveObjectToSharedPreference(getActivity(),userPojo.getEmailId(),userPojo);
+                    user.setLanguagePref(1);
+                else user.setLanguagePref(2);
+                SharedPreferenceService.setLocale(getActivity().getBaseContext(), user.getLanguagePref()==1?"en":"es");
+                SharedPreferenceService.saveObjectToSharedPreference(getActivity(), user.getEmailId(), user);
                 SharedPreferenceService.loadLocale(getActivity().getBaseContext());
                 getFragmentManager().beginTransaction().replace(R.id.content, InfoFragment.newInstance()).commit();
                 languageDailog.dismiss();

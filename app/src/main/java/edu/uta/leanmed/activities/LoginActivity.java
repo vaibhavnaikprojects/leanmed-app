@@ -7,12 +7,9 @@ import android.app.ActivityOptions;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 
-import android.os.AsyncTask;
-
 import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
@@ -20,7 +17,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import edu.uta.leanmed.pojo.UserPojo;
+import edu.uta.leanmed.pojo.User;
 import edu.uta.leanmed.services.RetrofitService;
 import edu.uta.leanmed.services.SharedPreferenceService;
 import edu.uta.leanmed.services.UserService;
@@ -41,8 +38,8 @@ public class LoginActivity extends AppCompatActivity{
         getSupportActionBar().hide();
         setContentView(R.layout.activity_login);
         if(SharedPreferenceService.getUserName().length() != 0){
-            UserPojo userPojo= SharedPreferenceService.getSavedObjectFromPreference(LoginActivity.this, SharedPreferenceService.getUserName());
-            nextActivity(userPojo);
+            User user = SharedPreferenceService.getSavedObjectFromPreference(LoginActivity.this, SharedPreferenceService.getUserName());
+            nextActivity(user);
             finish();
         }
         else {
@@ -71,13 +68,13 @@ public class LoginActivity extends AppCompatActivity{
             mEmailSignInButton.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    UserPojo userPojo=new UserPojo();
-                    userPojo.setName("Vaibhav Naik");
-                    userPojo.setType(2);
-                    userPojo.setLanguagePref(1);
-                    SharedPreferenceService.setLocale(getBaseContext(),userPojo.getLanguagePref()==1?"en":"es");
+                    User user =new User();
+                    user.setUserName("Vaibhav Naik");
+                    user.setType(2);
+                    user.setLanguagePref(1);
+                    SharedPreferenceService.setLocale(getBaseContext(), user.getLanguagePref()==1?"en":"es");
                     SharedPreferenceService.loadLocale(getBaseContext());
-                    nextActivity(userPojo);
+                    nextActivity(user);
                     //attemptLogin();
                 }
             });
@@ -109,16 +106,16 @@ public class LoginActivity extends AppCompatActivity{
             focusView.requestFocus();
         } else {
             showProgress(true);
-            Call<UserPojo> userCall = service.getUser(email,password);
-            userCall.enqueue(new Callback<UserPojo>(){
+            Call<User> userCall = service.getUser(email,password);
+            userCall.enqueue(new Callback<User>(){
                 @Override
-                public void onResponse(Call<UserPojo> call, Response<UserPojo> response) {
+                public void onResponse(Call<User> call, Response<User> response) {
                     showProgress(false);
-                    UserPojo userPojo=response.body();
-                    if(userPojo!=null) {
-                        if(userPojo.getStatus()==1) {
-                            SharedPreferenceService.saveObjectToSharedPreference(LoginActivity.this, userPojo.getEmailId(), userPojo);
-                            nextActivity(userPojo);
+                    User user =response.body();
+                    if(user !=null) {
+                        if(user.getUserStatus()==1) {
+                            SharedPreferenceService.saveObjectToSharedPreference(LoginActivity.this, user.getEmailId(), user);
+                            nextActivity(user);
                             finish();
                         }
                         else{
@@ -135,7 +132,7 @@ public class LoginActivity extends AppCompatActivity{
                 }
 
                 @Override
-                public void onFailure(Call<UserPojo> call, Throwable t) {
+                public void onFailure(Call<User> call, Throwable t) {
                     showProgress(false);
                     mPasswordView.setError(getString(R.string.error_incorrect_password));
                     mPasswordView.requestFocus();
@@ -168,12 +165,12 @@ public class LoginActivity extends AppCompatActivity{
         }
     }
 
-    public void nextActivity(UserPojo userPojo){
+    public void nextActivity(User user){
         Intent intent=null;
-        if(userPojo.getType()==2)   intent=new Intent(LoginActivity.this,RecdonActivity.class);
-        else if(userPojo.getType()==1) intent=new Intent(LoginActivity.this,GetdonActivity.class);
+        if(user.getType()==2)   intent=new Intent(LoginActivity.this,RecdonActivity.class);
+        else if(user.getType()==1) intent=new Intent(LoginActivity.this,GetdonActivity.class);
         else intent=new Intent(LoginActivity.this,AdminActivity.class);
-        intent.putExtra("user",userPojo);
+        intent.putExtra("user", user);
         startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
     }
