@@ -15,6 +15,9 @@ public class Zone implements Serializable {
 
     public Zone() {
     }
+    public Zone(String zoneId) {
+        this.zoneId=zoneId;
+    }
 
     public Zone(String zoneId, String zone, String zoneName, String zoneEmail, String zoneCountry) {
         this.zoneId = zoneId;

@@ -5,19 +5,25 @@ import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.app.ActivityOptions;
 import android.content.Intent;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 
 import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.gson.Gson;
 
 import edu.uta.leanmed.pojo.User;
+import edu.uta.leanmed.pojo.UserResponse;
 import edu.uta.leanmed.services.RetrofitService;
 import edu.uta.leanmed.services.SharedPreferenceService;
 import edu.uta.leanmed.services.UserService;
@@ -43,6 +49,9 @@ public class LoginActivity extends AppCompatActivity{
             finish();
         }
         else {
+            Intent intent=getIntent();
+            if(intent.getExtras()!=null)
+                Snackbar.make(findViewById(android.R.id.content),intent.getStringExtra("message"),Snackbar.LENGTH_LONG).show();
             mEmailView = findViewById(R.id.email);
             mPasswordView = findViewById(R.id.password);
             mForgot=findViewById(R.id.forgotPass);
@@ -51,7 +60,8 @@ public class LoginActivity extends AppCompatActivity{
                 @Override
                 public void onClick(View view) {
                     Intent intent=new Intent(LoginActivity.this,RegisterActivity.class);
-                    startActivity(intent);
+                    startActivity(intent,ActivityOptions.makeSceneTransitionAnimation(LoginActivity.this).toBundle());
+                    overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                     finish();
                 }
             });
@@ -59,7 +69,8 @@ public class LoginActivity extends AppCompatActivity{
                 @Override
                 public void onClick(View view) {
                     Intent intent=new Intent(LoginActivity.this,ForgotActivity.class);
-                    startActivity(intent);
+                    startActivity(intent,ActivityOptions.makeSceneTransitionAnimation(LoginActivity.this).toBundle());
+                    overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                     finish();
                 }
             });
@@ -68,14 +79,7 @@ public class LoginActivity extends AppCompatActivity{
             mEmailSignInButton.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    User user =new User();
-                    user.setUserName("Vaibhav Naik");
-                    user.setType(2);
-                    user.setLanguagePref(1);
-                    SharedPreferenceService.setLocale(getBaseContext(), user.getLanguagePref()==1?"en":"es");
-                    SharedPreferenceService.loadLocale(getBaseContext());
-                    nextActivity(user);
-                    //attemptLogin();
+                    attemptLogin();
                 }
             });
             mProgressView = findViewById(R.id.login_progress);
@@ -106,21 +110,25 @@ public class LoginActivity extends AppCompatActivity{
             focusView.requestFocus();
         } else {
             showProgress(true);
-            Call<User> userCall = service.getUser(email,password);
-            userCall.enqueue(new Callback<User>(){
+            User user=new User(email,password);
+            Call<UserResponse> userCall = service.loginUser(user);
+            userCall.enqueue(new Callback<UserResponse>(){
                 @Override
-                public void onResponse(Call<User> call, Response<User> response) {
+                public void onResponse(Call<UserResponse> call, Response<UserResponse> response) {
                     showProgress(false);
-                    User user =response.body();
+                    UserResponse user =response.body();
                     if(user !=null) {
-                        if(user.getUserStatus()==1) {
-                            SharedPreferenceService.saveObjectToSharedPreference(LoginActivity.this, user.getEmailId(), user);
-                            nextActivity(user);
+                        if(user.getStatus()==200) {
+                            user.getUser().setToken(user.getToken());
+                            SharedPreferenceService.saveObjectToSharedPreference(LoginActivity.this, user.getUser().getEmailId(), user.getUser());
+                            SharedPreferenceService.setLocale(getBaseContext(), user.getUser().getLanguagePref()==1?"en":"es");
+                            SharedPreferenceService.loadLocale(getBaseContext());
+                            nextActivity(user.getUser());
                             finish();
                         }
                         else{
                             showProgress(false);
-                            mPasswordView.setError(getString(R.string.inactive_user));
+                            mPasswordView.setError(user.getMessage());
                             mPasswordView.requestFocus();
                         }
                     }
@@ -132,9 +140,8 @@ public class LoginActivity extends AppCompatActivity{
                 }
 
                 @Override
-                public void onFailure(Call<User> call, Throwable t) {
-                    showProgress(false);
-                    mPasswordView.setError(getString(R.string.error_incorrect_password));
+                public void onFailure(Call<UserResponse> call, Throwable t) {
+                    mPasswordView.setError(t.getLocalizedMessage());
                     mPasswordView.requestFocus();
                 }
             });

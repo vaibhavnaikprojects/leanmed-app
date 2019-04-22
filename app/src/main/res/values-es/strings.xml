@@ -4,11 +4,15 @@
     <string name="prompt_email">Correo electrónico</string>
     <string name="prompt_password">contraseña</string>
     <string name="prompt_confirm_password">Confirmar contraseña</string>
+    <string name="prompt_address">Dirección</string>
+    <string name="prompt_city">Ciudad</string>
+    <string name="prompt_state">Estado</string>
+    <string name="prompt_country">País</string>
     <string name="action_sign_in">Iniciar sesión</string>
     <string name="error_invalid_email">Esta dirección de correo electrónico no es válida</string>
     <string name="error_invalid_password">Esta contraseña es demasiado corta</string>
     <string name="error_invalid_contact">Este contacto no es válido</string>
-    <string name="error_incorrect_password">Esta contraseña es incorrecta</string>
+    <string name="error_incorrect_password">Usuario / contraseña es incorrecta</string>
     <string name="error_field_required">Este campo es requerido</string>
     <string name="title_search">Buscar</string>
     <string name="title_cart">Carro</string>
@@ -46,4 +50,9 @@
     <string name="prompt_admin">Administración</string>
     <string name="title_filter">Filtrar</string>
     <string name="new_user">Nuevo usuario? Registrar aquí</string>
+    <string name="expiry">Expiración: </string>
+    <string name="inventory">Inventario: </string>
+    <string name="dosage">Dosificación: </string>
+    <string name="med_input">Entrada med: </string>
+    <string name="available_at">Zona: </string>
 </resources>

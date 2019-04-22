@@ -10,7 +10,7 @@ import java.util.List;
 public class User implements Serializable{
     private String userName;
     private String emailId;
-    private List<String> contacts;
+    private String contacts;
     private String leanIDF;
     private String leanIDAddress;
     private String identity;
@@ -23,10 +23,31 @@ public class User implements Serializable{
     private Zone zone;
     private int userStatus;
     private int languagePref;
-    private String currentRole;
+    private String token;
+    //private String currentRole;
     public User(){}
 
-    public User(String userName, String emailId, List<String> contacts, String leanIDF, String leanIDAddress, String identity, String userAddress, String city, String state, String country, String password, int type, Zone zone, int userStatus, int languagePref, String currentRole) {
+    public User(String emailId, String password) {
+        this.emailId = emailId;
+        this.password = password;
+    }
+
+    public User(String userName, String emailId, String contacts, String userAddress, String city, String state, String country, String password, int type, String zoneId, int userStatus, int langPref){
+        this.userName = userName;
+        this.emailId = emailId;
+        this.contacts = contacts;
+        this.userAddress = userAddress;
+        this.city = city;
+        this.state = state;
+        this.country = country;
+        this.password = password;
+        this.type = type;
+        this.zone = new Zone(zoneId);
+        this.userStatus = userStatus;
+        this.languagePref = langPref;
+    }
+
+    public User(String userName, String emailId, String contacts, String leanIDF, String leanIDAddress, String identity, String userAddress, String city, String state, String country, String password, int type, Zone zone, int userStatus, int languagePref) {
         this.userName = userName;
         this.emailId = emailId;
         this.contacts = contacts;
@@ -42,7 +63,6 @@ public class User implements Serializable{
         this.zone = zone;
         this.userStatus = userStatus;
         this.languagePref = languagePref;
-        this.currentRole = currentRole;
     }
 
     public String getUserName() {
@@ -61,11 +81,11 @@ public class User implements Serializable{
         this.emailId = emailId;
     }
 
-    public List<String> getContacts() {
+    public String getContacts() {
         return contacts;
     }
 
-    public void setContacts(List<String> contacts) {
+    public void setContacts(String contacts) {
         this.contacts = contacts;
     }
 
@@ -165,11 +185,11 @@ public class User implements Serializable{
         this.languagePref = languagePref;
     }
 
-    public String getCurrentRole() {
-        return currentRole;
+    public String getToken() {
+        return token;
     }
 
-    public void setCurrentRole(String currentRole) {
-        this.currentRole = currentRole;
+    public void setToken(String token) {
+        this.token = token;
     }
 }

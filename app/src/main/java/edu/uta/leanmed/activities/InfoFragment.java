@@ -41,7 +41,7 @@ public class InfoFragment extends Fragment {
         mName=view.findViewById(R.id.name);
         mType=view.findViewById(R.id.description);
         final User user =(User) getActivity().getIntent().getSerializableExtra("user");
-        mName.setText(user.getName());
+        mName.setText(user.getUserName());
         switch (user.getType()){
             case 1:
                 mType.setText(getString(R.string.prompt_getDon));

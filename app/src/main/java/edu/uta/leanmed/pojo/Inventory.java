@@ -14,11 +14,12 @@ public class Inventory implements Serializable {
     private String donationDate;
     private String idBox;
     private Donor donor;
+    private Zone zone;
 
     public Inventory() {
     }
 
-    public Inventory(int inventoryId, Medicine medicine, int units, String expiryDate, String donationDate, String idBox, Donor donor) {
+    public Inventory(int inventoryId, Medicine medicine, int units, String expiryDate, String donationDate, String idBox, Donor donor,Zone zone) {
         this.inventoryId = inventoryId;
         this.medicine = medicine;
         this.units = units;
@@ -26,6 +27,7 @@ public class Inventory implements Serializable {
         this.donationDate = donationDate;
         this.idBox = idBox;
         this.donor = donor;
+        this.zone=zone;
     }
 
     public int getInventoryId() {
@@ -82,5 +84,13 @@ public class Inventory implements Serializable {
 
     public void setDonor(Donor donor) {
         this.donor = donor;
+    }
+
+    public Zone getZone() {
+        return zone;
+    }
+
+    public void setZone(Zone zone) {
+        this.zone = zone;
     }
 }
