@@ -56,4 +56,25 @@
     <string name="dosage">Dosage: </string>
     <string name="med_input">Med Input: </string>
     <string name="available_at">Zone: </string>
+    <string-array name="inventoryNums">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+    </string-array>
+    <string name="inventory_details">Inventory Details</string>
+    <string name="generic_name">Generic Name: </string>
+    <string name="trade_name">Trade Name: </string>
+    <string name="medicine_type">Medicine Type: </string>
+    <string name="medicine_details">Medicine Details</string>
+    <string name="box_id">Box ID: </string>
+    <string name="zone_details">Zone Details</string>
+    <string name="zone_id">Zone ID: </string>
+    <string name="zone_name">Zone Name: </string>
+    <string name="zone_email">Zone Email: </string>
+    <string name="zone_country">Zone Country: </string>
+    <string name="zone">Zone:</string>
+    <string name="cart_error">Quantity cannot be more than inventory</string>
+    <string name="proceed">Proceed</string>
 </resources>

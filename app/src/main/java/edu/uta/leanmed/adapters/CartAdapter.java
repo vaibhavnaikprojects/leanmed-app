@@ -5,39 +5,41 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.List;
 
 import edu.uta.leanmed.activities.R;
+import edu.uta.leanmed.pojo.CartItem;
 import edu.uta.leanmed.pojo.Inventory;
 
 /**
- * Created by Vaibhav's Console on 4/21/2019.
+ * Created by Vaibhav's Console on 4/22/2019.
  */
 
-public class MedicineAdapter extends RecyclerView.Adapter<MedicineAdapter.ViewHolder>{
+public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder>{
     private Context mContext;
-    private List<Inventory> inventoryList;
-    OnItemClickListener mItemClickListener;
-    public MedicineAdapter(Context mContext, List<Inventory> inventoryList){
+    private List<CartItem> cartItems;
+    CartAdapter.OnItemClickListener mItemClickListener;
+    public CartAdapter(Context mContext, List<CartItem> cartItems){
         this.mContext=mContext;
-        this.inventoryList=inventoryList;
+        this.cartItems=cartItems;
     }
     class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         private TextView medicineName,medInput,dosage,inventory,expiry,zone;
-        private LinearLayout medicine;
+        private Button delete;
         public ViewHolder(View itemView) {
             super(itemView);
-            medicine=itemView.findViewById(R.id.medicine);
+            delete=itemView.findViewById(R.id.delete);
             medicineName=itemView.findViewById(R.id.medicine_name);
             medInput=itemView.findViewById(R.id.med_input);
             dosage=itemView.findViewById(R.id.dosage);
             expiry=itemView.findViewById(R.id.expiry);
             zone=itemView.findViewById(R.id.availableAt);
             inventory=itemView.findViewById(R.id.invetory);
-            medicine.setOnClickListener(this);
+            delete.setOnClickListener(this);
         }
         @Override
         public void onClick(View view) {
@@ -47,14 +49,15 @@ public class MedicineAdapter extends RecyclerView.Adapter<MedicineAdapter.ViewHo
         }
     }
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.card_layout, parent, false);
-        return new ViewHolder(view);
+    public CartAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.cart_layout, parent, false);
+        return new CartAdapter.ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(final ViewHolder holder,final int position) {
-        final Inventory inventory= inventoryList.get(position);
+    public void onBindViewHolder(final CartAdapter.ViewHolder holder, final int position) {
+        final CartItem cartItem= cartItems.get(position);
+        Inventory inventory=cartItem.getInventory();
         holder.medicineName.setText(inventory.getMedicine().getTradeName()+" ("+inventory.getMedicine().getGenName()+")");
         holder.medInput.setText(mContext.getString(R.string.med_input)+inventory.getMedicine().getMedicineType());
         holder.dosage.setText(mContext.getString(R.string.dosage)+inventory.getMedicine().getDosage());
@@ -67,12 +70,13 @@ public class MedicineAdapter extends RecyclerView.Adapter<MedicineAdapter.ViewHo
         void onItemClick(View view, int position);
     }
 
-    public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
+    public void setOnItemClickListener(CartAdapter.OnItemClickListener onItemClickListener) {
         this.mItemClickListener = onItemClickListener;
     }
 
     @Override
     public int getItemCount() {
-        return inventoryList.size();
+        return cartItems.size();
     }
+
 }

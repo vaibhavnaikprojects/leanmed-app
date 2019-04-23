@@ -3,11 +3,16 @@ package edu.uta.leanmed.services;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
+import android.util.Log;
 
 import com.google.gson.Gson;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Locale;
 
+import edu.uta.leanmed.pojo.CartItem;
 import edu.uta.leanmed.pojo.User;
 
 /**
@@ -23,6 +28,26 @@ public class SharedPreferenceService {
         String serializedObject = gson.toJson(user);
         sharedPreferencesEditor.putString(serializedObjectKey, serializedObject);
         sharedPreferencesEditor.apply();
+    }
+    public static void saveCartToSharedPreference(Context context, CartItem cartItem) {
+        SharedPreferences.Editor sharedPreferencesEditor = context.getSharedPreferences("cart", 0).edit();
+        final Gson gson = new Gson();
+        List<CartItem> cartItems=getCart(context);
+        if(cartItems==null || cartItems.size()==0)
+            cartItems=new ArrayList<CartItem>();
+        cartItems.add(cartItem);
+        Log.d("cartItem",cartItems.toString());
+        String serializedObject = gson.toJson(cartItems);
+        sharedPreferencesEditor.putString("cart", serializedObject);
+        sharedPreferencesEditor.apply();
+    }
+    public static List<CartItem> getCart(Context context) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences("cart", 0);
+        if (sharedPreferences.contains("cart")) {
+            final Gson gson = new Gson();
+            return new ArrayList<CartItem>(Arrays.asList(gson.fromJson(sharedPreferences.getString("cart", ""), CartItem[].class)));
+        }
+        return null;
     }
 
     public static void updateLocale(Context context, String lang){
@@ -54,6 +79,7 @@ public class SharedPreferenceService {
     }
     public static void removePreferences(Context context){
         context.getSharedPreferences("users", 0).edit().clear().commit();
+        context.getSharedPreferences("cart", 0).edit().clear().commit();
         context.getSharedPreferences("settings", 0).edit().clear().commit();
         userName="";
     }

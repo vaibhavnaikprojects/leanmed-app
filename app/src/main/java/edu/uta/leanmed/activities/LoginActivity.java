@@ -83,7 +83,12 @@ public class LoginActivity extends AppCompatActivity{
                 }
             });
             mProgressView = findViewById(R.id.login_progress);
+            createDummyRegField();
         }
+    }
+    public void createDummyRegField(){
+        mEmailView.setText("vaibhavsnaik09@gmail.com");
+        mPasswordView.setText("password");
     }
     private void attemptLogin() {
         mEmailView.setError(null);
@@ -120,9 +125,10 @@ public class LoginActivity extends AppCompatActivity{
                     if(user !=null) {
                         if(user.getStatus()==200) {
                             user.getUser().setToken(user.getToken());
-                            SharedPreferenceService.saveObjectToSharedPreference(LoginActivity.this, user.getUser().getEmailId(), user.getUser());
+                            SharedPreferenceService.saveObjectToSharedPreference(LoginActivity.this,user.getUser().getEmailId(), user.getUser());
                             SharedPreferenceService.setLocale(getBaseContext(), user.getUser().getLanguagePref()==1?"en":"es");
                             SharedPreferenceService.loadLocale(getBaseContext());
+                            showProgress(false);
                             nextActivity(user.getUser());
                             finish();
                         }

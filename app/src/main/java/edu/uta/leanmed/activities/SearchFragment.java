@@ -8,13 +8,12 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
-import android.widget.SearchView;
 
 import java.util.List;
 
@@ -23,11 +22,11 @@ import edu.uta.leanmed.pojo.Inventory;
 import edu.uta.leanmed.pojo.InventoryResponse;
 import edu.uta.leanmed.pojo.User;
 import edu.uta.leanmed.services.MedicineAPIService;
+import edu.uta.leanmed.services.RetrofitService;
 import edu.uta.leanmed.services.SharedPreferenceService;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
 
 
 public class SearchFragment extends Fragment {
@@ -53,10 +52,10 @@ public class SearchFragment extends Fragment {
         pDialog = new ProgressDialog(getActivity());
         pDialog.setMessage("Please wait...");
         pDialog.setCancelable(false);
-        setView("",view);
-        user = SharedPreferenceService.getSavedObjectFromPreference(getActivity().getApplicationContext(),"user");
+        user = SharedPreferenceService.getSavedObjectFromPreference(getActivity().getApplicationContext(),SharedPreferenceService.getUserName());
+        service = RetrofitService.newInstance().create(MedicineAPIService.class);
         SearchManager searchManager =(SearchManager) getActivity().getSystemService(Context.SEARCH_SERVICE);
-        SearchView searchView =view.findViewById(R.id.autoCompleteSearch);
+        searchView =view.findViewById(R.id.autoCompleteSearch);
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -78,6 +77,7 @@ public class SearchFragment extends Fragment {
             }
         });
         searchView.setSearchableInfo(searchManager.getSearchableInfo(getActivity().getComponentName()));
+        setView("",view);
         return view;
     }
 
@@ -109,9 +109,10 @@ public class SearchFragment extends Fragment {
     MedicineAdapter.OnItemClickListener onItemClickListener=new MedicineAdapter.OnItemClickListener(){
         @Override
         public void onItemClick(View view, int position) {
-            /*Intent intent= new Intent(getContext(),InventoryDetailActivity.class);
-            intent.putExtra("product",products.get(position));
-            startActivity(intent);*/
+            Intent intent= new Intent(getContext(),InventoryDetailActivity.class);
+            intent.putExtra("medicineInventory",inventoryList.get(position));
+            startActivity(intent);
+            getActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
         }
     };
     private void showpDialog() {

@@ -148,6 +148,7 @@ public class InfoFragment extends Fragment {
                 Intent intent=new Intent(getActivity().getApplicationContext(),LoginActivity.class);
                 SharedPreferenceService.removePreferences(getActivity().getApplicationContext());
                 startActivity(intent);
+                getActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                 getActivity().finish();
             }
         });
