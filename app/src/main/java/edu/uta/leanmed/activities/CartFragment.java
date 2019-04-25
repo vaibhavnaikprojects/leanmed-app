@@ -8,20 +8,21 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
+import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import edu.uta.leanmed.adapters.CartAdapter;
-import edu.uta.leanmed.adapters.MedicineAdapter;
 import edu.uta.leanmed.pojo.CartItem;
-import edu.uta.leanmed.pojo.InventoryResponse;
 import edu.uta.leanmed.pojo.User;
 import edu.uta.leanmed.services.MedicineAPIService;
 import edu.uta.leanmed.services.SharedPreferenceService;
-import retrofit2.Call;
 
 public class CartFragment extends Fragment {
     private ProgressDialog pDialog;
@@ -30,6 +31,7 @@ public class CartFragment extends Fragment {
     private List<CartItem> cartItems;
     private MedicineAPIService service;
     private User user;
+    private Button mProceed;
     public CartFragment() {
     }
 
@@ -44,12 +46,30 @@ public class CartFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view= inflater.inflate(R.layout.fragment_cart, container, false);
         pDialog = new ProgressDialog(getActivity());
-        pDialog.setMessage("Please wait...");
+        pDialog.setMessage(getString(R.string.please_wait_dailog));
         pDialog.setCancelable(false);
         user = SharedPreferenceService.getSavedObjectFromPreference(getContext(),SharedPreferenceService.getUserName());
         cartItems=SharedPreferenceService.getCart(getContext());
+        if(cartItems==null) cartItems=new ArrayList<>();
+        mProceed=view.findViewById(R.id.proceed);
+        mProceed.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                proceedNextSteps();
+            }
+        });
+        if(cartItems.size()==0) mProceed.setVisibility(View.GONE);
         setView(view);
         return view;
+    }
+
+    private void proceedNextSteps(){
+        showpDialog();
+        hidepDialog();
+        SharedPreferenceService.setCart(getContext(),cartItems);
+        Intent intent= new Intent(getContext(),CartPatientActivity.class);
+        startActivity(intent);
+        getActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
     }
 
     public void setView(final View view) {
@@ -67,7 +87,8 @@ public class CartFragment extends Fragment {
         @Override
         public void onItemClick(View view, int position) {
             cartItems.remove(position);
-            setView(view);
+            SharedPreferenceService.setCart(getContext(),cartItems);
+            cartAdapter.notifyDataSetChanged();
             /*Intent intent= new Intent(getContext(),InventoryDetailActivity.class);
             intent.putExtra("medicineInventory",inventoryList.get(position));
             startActivity(intent);
@@ -84,4 +105,10 @@ public class CartFragment extends Fragment {
             pDialog.dismiss();
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        if(cartItems.size()>0 && SharedPreferenceService.getCart(getContext())==null)
+            getFragmentManager().beginTransaction().replace(R.id.content, CartFragment.newInstance()).commit();
+    }
 }

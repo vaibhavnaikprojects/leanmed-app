@@ -48,6 +48,7 @@
     <string name="update">Actualizar</string>
     <string name="prompt_select_password">Actualiza contraseña</string>
     <string name="prompt_admin">Administración</string>
+    <string name="app_version">Versión: 0.1</string>
     <string name="title_filter">Filtrar</string>
     <string name="new_user">Nuevo usuario? Registrar aquí</string>
     <string name="expiry">Expiración: </string>
@@ -55,7 +56,37 @@
     <string name="dosage">Dosificación: </string>
     <string name="med_input">Entrada med: </string>
     <string name="available_at">Zona: </string>
-    <string name="generic_name">Generic Name:</string>
-    <string name="trade_name">Trade Name:</string>
-    <string name="medicine_type">Medicine Type:</string>
+    <string-array name="inventoryNums">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+    </string-array>
+    <string name="inventory_details">Detalles del inventario</string>
+    <string name="generic_name">Nombre generico:</string>
+    <string name="trade_name">Nombre comercial:</string>
+    <string name="medicine_type">Tipo de medicina:</string>
+    <string name="medicine_details">Detalles de la medicina</string>
+    <string name="box_id">ID de caja: </string>
+    <string name="zone_details">Detalles de la zona</string>
+    <string name="zone_id">ID: </string>
+    <string name="zone_name">Nombre: </string>
+    <string name="zone_email">Zone Email: </string>
+    <string name="zone_country">País: </string>
+    <string name="zone">Zona:</string>
+    <string name="cart_error">La cantidad no puede ser más que el inventario</string>
+    <string name="proceed">Proceder</string>
+    <string name="user_selection">Selección de usuario</string>
+    <string name="patient_details">Detalles del paciente</string>
+    <string name="upload_prescription">Subir prescripción</string>
+    <string name="discard">Descarte</string>
+    <string name="submit_request">Enviar peticion</string>
+    <string name="date_of_birth">Fecha de nacimiento</string>
+    <string name="prompt_last_name">Apellido</string>
+    <string name="prompt_first_name">Nombre de pila</string>
+    <string name="discard_title">Solicitud de descarte</string>
+    <string name="discard_detail">¿Estás seguro de que deseas eliminar esta solicitud? Se borrarán los detalles del carrito.</string>
+    <string name="please_wait_dailog">Por favor espera...</string>
+
 </resources>

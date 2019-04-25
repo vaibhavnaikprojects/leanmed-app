@@ -50,7 +50,7 @@ public class SearchFragment extends Fragment {
                              Bundle savedInstanceState) {
         final View view= inflater.inflate(R.layout.fragment_search, container, false);
         pDialog = new ProgressDialog(getActivity());
-        pDialog.setMessage("Please wait...");
+        pDialog.setMessage(getString(R.string.please_wait_dailog));
         pDialog.setCancelable(false);
         user = SharedPreferenceService.getSavedObjectFromPreference(getActivity().getApplicationContext(),SharedPreferenceService.getUserName());
         service = RetrofitService.newInstance().create(MedicineAPIService.class);

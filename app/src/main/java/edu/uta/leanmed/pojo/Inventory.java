@@ -93,4 +93,18 @@ public class Inventory implements Serializable {
     public void setZone(Zone zone) {
         this.zone = zone;
     }
+
+    @Override
+    public String toString() {
+        return "Inventory{" +
+                "inventoryId=" + inventoryId +
+                ", medicine=" + medicine +
+                ", units=" + units +
+                ", expiryDate='" + expiryDate + '\'' +
+                ", donationDate='" + donationDate + '\'' +
+                ", idBox='" + idBox + '\'' +
+                ", donor=" + donor +
+                ", zone=" + zone +
+                '}';
+    }
 }

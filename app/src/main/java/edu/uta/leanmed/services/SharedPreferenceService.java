@@ -49,6 +49,13 @@ public class SharedPreferenceService {
         }
         return null;
     }
+    public static void setCart(Context context, List<CartItem> cartItems) {
+        SharedPreferences.Editor sharedPreferencesEditor = context.getSharedPreferences("cart", 0).edit();
+        final Gson gson = new Gson();
+        String serializedObject = gson.toJson(cartItems);
+        sharedPreferencesEditor.putString("cart", serializedObject);
+        sharedPreferencesEditor.apply();
+    }
 
     public static void updateLocale(Context context, String lang){
         SharedPreferences.Editor sharedPreferencesEditor = context.getSharedPreferences("settings", 0).edit();
@@ -87,4 +94,5 @@ public class SharedPreferenceService {
     public static String getUserName() {
         return userName;
     }
+
 }
