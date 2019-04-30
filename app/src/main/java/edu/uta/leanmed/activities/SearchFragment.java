@@ -109,10 +109,12 @@ public class SearchFragment extends Fragment {
     MedicineAdapter.OnItemClickListener onItemClickListener=new MedicineAdapter.OnItemClickListener(){
         @Override
         public void onItemClick(View view, int position) {
-            Intent intent= new Intent(getContext(),InventoryDetailActivity.class);
-            intent.putExtra("medicineInventory",inventoryList.get(position));
-            startActivity(intent);
-            getActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+            if(user.getType()==1) {
+                Intent intent = new Intent(getContext(), InventoryDetailActivity.class);
+                intent.putExtra("medicineInventory", inventoryList.get(position));
+                startActivity(intent);
+                getActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+            }
         }
     };
     private void showpDialog() {

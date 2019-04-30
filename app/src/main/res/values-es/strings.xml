@@ -88,5 +88,18 @@
     <string name="discard_title">Solicitud de descarte</string>
     <string name="discard_detail">¿Estás seguro de que deseas eliminar esta solicitud? Se borrarán los detalles del carrito.</string>
     <string name="please_wait_dailog">Por favor espera...</string>
-
+    <string name="disabled">Discapacitado</string>
+    <string name="pending">Pendiente</string>
+    <string name="active">Activo</string>
+    <string name="search_user">Buscar en Userve</string>
+    <string name="user_name_identity">Nombre de usuario (Identidad)</string>
+    <string name="user_details">Detalles de usuario</string>
+    <string name="user_name">Nombre de usuario: </string>
+    <string name="user_type">Tipo de usuario: </string>
+    <string name="status">Estado:</string>
+    <string name="approve">Aprobar</string>
+    <string name="disable">Inhabilitar</string>
+    <string name="deny">Negar</string>
+    <string name="user_denied">El uso está denegado y no podrá acceder a la aplicación.</string>
+    <string name="user_updated">Usuario actualizado</string>
 </resources>

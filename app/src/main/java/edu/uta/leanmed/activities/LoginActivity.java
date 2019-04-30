@@ -123,7 +123,7 @@ public class LoginActivity extends AppCompatActivity{
                     showProgress(false);
                     UserResponse user =response.body();
                     if(user !=null) {
-                        if(user.getStatus()==200) {
+                        if(user.getStatus()==200 && user.getUser().getUserStatus()==1) {
                             user.getUser().setToken(user.getToken());
                             SharedPreferenceService.saveObjectToSharedPreference(LoginActivity.this,user.getUser().getEmailId(), user.getUser());
                             SharedPreferenceService.setLocale(getBaseContext(), user.getUser().getLanguagePref()==1?"en":"es");
