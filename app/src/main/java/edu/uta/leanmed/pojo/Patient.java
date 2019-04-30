@@ -12,7 +12,7 @@ public class Patient implements Serializable {
     private String firstName;
     private String lastName;
     private String dob;
-    private List<String> contact;
+    private String contact;
     private String address;
     private String email;
     private String city;
@@ -21,7 +21,18 @@ public class Patient implements Serializable {
     private List<Integer> ordersIds;
     public Patient() {
     }
-    public Patient(int patientId, String firstName, String lastName, String dob, List<String> contact, String address, String email, String city, String state, String country, List<Integer> ordersIds) {
+    public Patient(String firstName, String lastName, String dob, String contact, String address, String email, String city, String state, String country) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.dob = dob;
+        this.contact = contact;
+        this.address = address;
+        this.email = email;
+        this.city = city;
+        this.state = state;
+        this.country = country;
+    }
+    public Patient(int patientId, String firstName, String lastName, String dob, String contact, String address, String email, String city, String state, String country, List<Integer> ordersIds) {
         this.patientId = patientId;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -67,11 +78,11 @@ public class Patient implements Serializable {
         this.dob = dob;
     }
 
-    public List<String> getContact() {
+    public String getContact() {
         return contact;
     }
 
-    public void setContact(List<String> contact) {
+    public void setContact(String contact) {
         this.contact = contact;
     }
 

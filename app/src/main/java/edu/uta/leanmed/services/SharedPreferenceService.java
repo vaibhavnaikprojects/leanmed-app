@@ -45,7 +45,11 @@ public class SharedPreferenceService {
         SharedPreferences sharedPreferences = context.getSharedPreferences("cart", 0);
         if (sharedPreferences.contains("cart")) {
             final Gson gson = new Gson();
+            try{
             return new ArrayList<CartItem>(Arrays.asList(gson.fromJson(sharedPreferences.getString("cart", ""), CartItem[].class)));
+            }catch (Exception e){
+                return null;
+            }
         }
         return null;
     }

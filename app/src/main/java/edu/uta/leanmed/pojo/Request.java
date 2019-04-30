@@ -19,6 +19,14 @@ public class Request implements Serializable {
     private User createdUser;
     private User acceptedUser;
 
+    public Request() {
+    }
+    public Request(Inventory inventory,Zone zone,int quantity) {
+        this.inventory=inventory;
+        this.zone=zone;
+        this.quantity=quantity;
+    }
+
     public int getRequestId() {
         return requestId;
     }

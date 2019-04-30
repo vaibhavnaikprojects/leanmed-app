@@ -108,7 +108,7 @@ public class CartFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        if(cartItems.size()>0 && SharedPreferenceService.getCart(getContext())==null)
+        if(cartItems.size()>0 && (SharedPreferenceService.getCart(getContext())==null || SharedPreferenceService.getCart(getContext()).size()==0))
             getFragmentManager().beginTransaction().replace(R.id.content, CartFragment.newInstance()).commit();
     }
 }

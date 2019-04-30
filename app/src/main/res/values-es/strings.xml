@@ -102,4 +102,7 @@
     <string name="deny">Negar</string>
     <string name="user_denied">El uso está denegado y no podrá acceder a la aplicación.</string>
     <string name="user_updated">Usuario actualizado</string>
+    <string name="created_by">Creado por:</string>
+    <string name="created_date">Fecha de creación:</string>
+    <string name="requested_quantity">Cantidad requerida:</string>
 </resources>

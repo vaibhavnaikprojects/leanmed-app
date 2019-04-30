@@ -33,7 +33,7 @@ public class RetrofitService {
                 .readTimeout(60, TimeUnit.SECONDS)
                 .addInterceptor(interceptor).build();
         retrofit=new Retrofit.Builder()
-                .baseUrl(urlLocalhost)
+                .baseUrl(url)
                 .client(client)
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .build();

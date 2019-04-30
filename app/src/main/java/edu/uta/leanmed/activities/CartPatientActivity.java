@@ -16,18 +16,33 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 
 import edu.uta.leanmed.pojo.CartItem;
+import edu.uta.leanmed.pojo.Order;
+import edu.uta.leanmed.pojo.OrderResponse;
+import edu.uta.leanmed.pojo.Patient;
+import edu.uta.leanmed.pojo.Request;
+import edu.uta.leanmed.pojo.User;
+import edu.uta.leanmed.pojo.UserResponse;
+import edu.uta.leanmed.services.OrderAPIService;
+import edu.uta.leanmed.services.RetrofitService;
 import edu.uta.leanmed.services.SharedPreferenceService;
+import edu.uta.leanmed.services.UserService;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class CartPatientActivity extends AppCompatActivity {
     private ProgressDialog pDialog;
     private EditText mFName,mLName,mEmail,mContact,mAddress,mCity,mState,mCountry,mBirthday;
     private Button mPrescription,mCancel,mSubmit;
     private List<CartItem> cartItems;
+    private User user;
+    private OrderAPIService orderAPIService;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,6 +52,8 @@ public class CartPatientActivity extends AppCompatActivity {
         pDialog.setCancelable(false);
         cartItems=SharedPreferenceService.getCart(getBaseContext());
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        orderAPIService= RetrofitService.newInstance().create(OrderAPIService.class);
+        user=SharedPreferenceService.getSavedObjectFromPreference(getBaseContext(),SharedPreferenceService.getUserName());
         mFName=findViewById(R.id.fname);
         mLName=findViewById(R.id.lname);
         mEmail=findViewById(R.id.email);
@@ -76,7 +93,6 @@ public class CartPatientActivity extends AppCompatActivity {
             @Override
             public void onDateSet(DatePicker view, int year, int monthOfYear,
                                   int dayOfMonth) {
-                // TODO Auto-generated method stub
                 myCalendar.set(Calendar.YEAR, year);
                 myCalendar.set(Calendar.MONTH, monthOfYear);
                 myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
@@ -98,7 +114,21 @@ public class CartPatientActivity extends AppCompatActivity {
                 placeOrder();
             }
         });
+        createDummyData();
     }
+
+    private void createDummyData(){
+        mFName.setText("Vikrant");
+        mLName.setText("Shinde");
+        mEmail.setText("vikrant.shinde1994@gmail.com");
+        mContact.setText("3134136033");
+        mAddress.setText("419 Summit Ave");
+        mCity.setText("Arlington");
+        mState.setText("TX");
+        mCountry.setText("United States");
+        mBirthday.setText("04/17/19");
+    }
+
     public void placeOrder(){
         mFName.setError(null);
         mLName.setError(null);
@@ -177,7 +207,28 @@ public class CartPatientActivity extends AppCompatActivity {
             focusView.requestFocus();
         } else {
             showpDialog();
-            hidepDialog();
+            Patient patient=new Patient(fName,lName,birthday,contact,address,email,city,state,country);
+            Order order=new Order();
+            order.setCreatedUser(user);
+            order.setPatient(patient);
+            List<Request> requests=new ArrayList<>();
+            for (CartItem cartItem:cartItems)
+                requests.add(new Request(cartItem.getInventory(),cartItem.getRequestedZone(),cartItem.getCount()));
+            order.setRequests(requests);
+            Call<OrderResponse> orderCall = orderAPIService.placeOrder(user.getEmailId(),user.getToken(),order);
+            orderCall.enqueue(new Callback<OrderResponse>() {
+                @Override
+                public void onResponse(Call<OrderResponse> call, Response<OrderResponse> response) {
+                    SharedPreferenceService.setCart(getBaseContext(),new ArrayList<CartItem>());
+                    hidepDialog();
+                    finish();
+                }
+
+                @Override
+                public void onFailure(Call<OrderResponse> call, Throwable t) {
+                    hidepDialog();
+                }
+            });
         }
     }
     private boolean isContactValid(String contact) {

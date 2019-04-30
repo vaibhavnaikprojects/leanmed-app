@@ -102,5 +102,8 @@
     <string name="deny">Deny</string>
     <string name="user_denied">Use is denied and wont be able to access the app</string>
     <string name="user_updated">User updated</string>
+    <string name="created_by">Created By:</string>
+    <string name="created_date">Created Date:</string>
+    <string name="requested_quantity">Requested quantity:</string>
 
 </resources>
