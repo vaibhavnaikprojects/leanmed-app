@@ -109,7 +109,7 @@ public class SearchFragment extends Fragment {
     MedicineAdapter.OnItemClickListener onItemClickListener=new MedicineAdapter.OnItemClickListener(){
         @Override
         public void onItemClick(View view, int position) {
-            if(user.getType()==1) {
+            if(user.getType()==2) {
                 Intent intent = new Intent(getContext(), InventoryDetailActivity.class);
                 intent.putExtra("medicineInventory", inventoryList.get(position));
                 startActivity(intent);

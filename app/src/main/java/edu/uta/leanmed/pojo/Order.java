@@ -11,8 +11,8 @@ public class Order implements Serializable {
     private int orderId;
     private String orderDate;
     private String recievingDate;
-    private boolean prescriptionImage;
-    private boolean confirmationImage;
+    private String prescriptionImage;
+    private String confirmationImage;
     private String comments;
     private String status;
     private User createdUser;
@@ -22,7 +22,7 @@ public class Order implements Serializable {
     public Order() {
     }
 
-    public Order(int orderId, String orderDate, String recievingDate, boolean prescriptionImage, boolean confirmationImage, String comments, String status, User createdUser, Patient patient, List<Request> requests) {
+    public Order(int orderId, String orderDate, String recievingDate, String prescriptionImage, String confirmationImage, String comments, String status, User createdUser, Patient patient, List<Request> requests) {
         this.orderId = orderId;
         this.orderDate = orderDate;
         this.recievingDate = recievingDate;
@@ -59,19 +59,19 @@ public class Order implements Serializable {
         this.recievingDate = recievingDate;
     }
 
-    public boolean isPrescriptionImage() {
+    public String isPrescriptionImage() {
         return prescriptionImage;
     }
 
-    public void setPrescriptionImage(boolean prescriptionImage) {
+    public void setPrescriptionImage(String prescriptionImage) {
         this.prescriptionImage = prescriptionImage;
     }
 
-    public boolean isConfirmationImage() {
+    public String isConfirmationImage() {
         return confirmationImage;
     }
 
-    public void setConfirmationImage(boolean confirmationImage) {
+    public void setConfirmationImage(String confirmationImage) {
         this.confirmationImage = confirmationImage;
     }
 
@@ -113,5 +113,21 @@ public class Order implements Serializable {
 
     public void setRequests(List<Request> requests) {
         this.requests = requests;
+    }
+
+    @Override
+    public String toString() {
+        return "Order{" +
+                "orderId=" + orderId +
+                ", orderDate='" + orderDate + '\'' +
+                ", recievingDate='" + recievingDate + '\'' +
+                ", prescriptionImage='" + prescriptionImage + '\'' +
+                ", confirmationImage='" + confirmationImage + '\'' +
+                ", comments='" + comments + '\'' +
+                ", status='" + status + '\'' +
+                ", createdUser=" + createdUser +
+                ", patient=" + patient +
+                ", requests=" + requests +
+                '}';
     }
 }

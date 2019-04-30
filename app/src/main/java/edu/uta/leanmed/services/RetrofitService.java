@@ -20,6 +20,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class RetrofitService {
     private Retrofit retrofit;
     private static RetrofitService retrofitService;
+    private static String url="http://ea7c3c27.ngrok.io/leanmed/api/";
+    private static String urlLocalhost="http://localhost/leanmed/api/";
     private RetrofitService(){
         Gson gson = new GsonBuilder()
                 .setLenient()
@@ -31,7 +33,7 @@ public class RetrofitService {
                 .readTimeout(60, TimeUnit.SECONDS)
                 .addInterceptor(interceptor).build();
         retrofit=new Retrofit.Builder()
-                .baseUrl("http://192.168.56.1/leanmed/api/")
+                .baseUrl(urlLocalhost)
                 .client(client)
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .build();
